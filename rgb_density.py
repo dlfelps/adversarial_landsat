@@ -42,9 +42,12 @@ class RGB_density():
     self.class_idx = class_idx
     self.classes = [0,all_classes[self.class_idx]] #just 0 and current class
     self.counter = np.zeros(shape=(256,256,256), dtype=np.uint32)
+    self.has_counter_been_smoothed = False
+
+  
+  def fit_counter(self):
     task = SemanticSegmentationTask.load_from_checkpoint('/content/drive/MyDrive/landsat/epoch=12-step=3585.ckpt')
     self.model = task.model
-    self.has_counter_been_smoothed = False
     self.hsi_data = SSL4EOLBenchmark(root="./data",
                          split='test',
                          download=False,
@@ -53,8 +56,7 @@ class RGB_density():
                          classes=self.classes,
                          transforms=AugmentationSequential(K.CenterCrop((224,224)),
                                                           data_keys=["image", "mask"]))
-  
-  def fit_counter(self):
+
     self.model.eval()
     
     with torch.no_grad():
