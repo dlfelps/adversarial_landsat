@@ -128,8 +128,10 @@ class RGB_density():
     assert type(another_density) == RGB_density
 
     H = self.harmonic_mean_with(another_density)
-    R = self.ratio_with(another_density)
+    # R = self.ratio_with(another_density)
     ids = np.argwhere(H) # only where both have values
     h = get_values_at(H, ids)
-    r = get_values_at(R, ids)
-    return pd.DataFrame({'ids':list(ids), 'h':h, 'r':r})
+    # r = get_values_at(R, ids)
+    df = pd.DataFrame({'ids':list(ids), 'h':h})
+    df = df[df['h']>100]
+    return df['ids'].tolist()
