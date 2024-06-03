@@ -47,7 +47,7 @@ class RGB_density():
     self.has_counter_been_smoothed = False
     self.hsi_data = SSL4EOLBenchmark(root="./data",
                          split='test',
-                         download=True,
+                         download=False,
                          sensor= "oli_sr",
                          product="cdl",
                          classes=self.classes,
