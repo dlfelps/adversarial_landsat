@@ -134,4 +134,5 @@ class RGB_density():
     # r = get_values_at(R, ids)
     df = pd.DataFrame({'ids':list(ids), 'h':h})
     df = df[df['h']>100]
-    return df['ids'].tolist()
+    points = df['ids'].tolist()
+    return list(map(lambda x: tuple(x.tolist()), points))
